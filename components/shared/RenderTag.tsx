@@ -3,9 +3,9 @@ import React from "react";
 import { Badge } from "../ui/badge";
 
 interface RenderTagProps {
-  _id: number;
+  _id: string;
   name: string;
-  totalQuestions: number;
+  totalQuestions?: number;
   showCount?: boolean;
 }
 
