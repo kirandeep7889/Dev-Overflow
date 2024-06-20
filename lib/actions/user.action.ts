@@ -28,6 +28,8 @@ import Question from "@/database/question.model";
 
         const newUser=await User.create(userData);
 
+        return newUser;
+
     } catch (error) {
        console.log(error);
     }
@@ -58,7 +60,7 @@ const user=await User.findOneAndDelete({clerkId});
   }
 
   // get user question Ids
-  const userQuestionIds=await Question.find({author:user._id}).distinct('_id');
+//   const userQuestionIds=await Question.find({author:user._id}).distinct('_id');
 
   //delete user question ids
   await Question.deleteMany({author:user._id});
