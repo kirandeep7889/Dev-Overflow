@@ -50,7 +50,6 @@ const questions = [
 
 const Home = async () => {
   const result = await getQuestions({});
-  console.log(result);
   return (
     <>
       <div

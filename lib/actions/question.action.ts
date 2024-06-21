@@ -25,7 +25,6 @@ export async  function getQuestions(params:GetQuestionsParams) {
 
 export async function CreateQuestion(params:CreateQuestionParams) {
     try {
-        console.log(params)
         await connectToDatabase();
         const {title,content,tags,author,path}=params;
 

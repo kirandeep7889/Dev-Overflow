@@ -26,7 +26,10 @@ import Question from "@/database/question.model";
     try {
         await connectToDatabase();
 
+        console.log(userData);
+
         const newUser=await User.create(userData);
+        console.log(newUser)
 
         return newUser;
 
