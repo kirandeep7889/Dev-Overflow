@@ -11,41 +11,41 @@ import Link from "next/link";
 import React from "react";
 
 const questions = [
-  {
-    _id: "1",
-    title:
-      "How do ES6 module exports and imports work in JavaScript, and what are the key differences from CommonJS?",
-    tags: [
-      { _id: "1", name: "Javascript" },
-      { _id: "2", name: "ES6" },
-    ],
-    author: {
-      _id: "1",
-      name: "kirandeep Singh",
-      picture: "", // Assuming an empty string for the picture, as it's not provided in the original data
-    },
-    upvotes: 1500000, // Representing the upvotes as an array of strings
-    answers: [{}, {}], // Assuming each answer is an empty object, as the detailed structure is not provided
-    views: 50000,
-    createdAt: new Date("2023-06-04"), // Converting the date string to a Date object
-  },
-  {
-    _id: "2",
-    title: "How to center a div ?",
-    tags: [
-      { _id: "3", name: "CSS" },
-      { _id: "4", name: "Styling" },
-    ],
-    author: {
-      _id: "1",
-      name: "kirandeep Singh",
-      picture: "", // Assuming an empty string for the picture, as it's not provided in the original data
-    },
-    upvotes: 10000000, // Representing the upvotes as an array of strings
-    answers: [{}, {}], // Assuming each answer is an empty object, as the detailed structure is not provided
-    views: 40000,
-    createdAt: new Date("2024-06-04"), // Converting the date string to a Date object
-  },
+  // {
+  //   _id: "1",
+  //   title:
+  //     "How do ES6 module exports and imports work in JavaScript, and what are the key differences from CommonJS?",
+  //   tags: [
+  //     { _id: "1", name: "Javascript" },
+  //     { _id: "2", name: "ES6" },
+  //   ],
+  //   author: {
+  //     _id: "1",
+  //     name: "kirandeep Singh",
+  //     picture: "", // Assuming an empty string for the picture, as it's not provided in the original data
+  //   },
+  //   upvotes: 1500000, // Representing the upvotes as an array of strings
+  //   answers: [{}, {}], // Assuming each answer is an empty object, as the detailed structure is not provided
+  //   views: 50000,
+  //   createdAt: new Date("2023-06-04"), // Converting the date string to a Date object
+  // },
+  // {
+  //   _id: "2",
+  //   title: "How to center a div ?",
+  //   tags: [
+  //     { _id: "3", name: "CSS" },
+  //     { _id: "4", name: "Styling" },
+  //   ],
+  //   author: {
+  //     _id: "1",
+  //     name: "kirandeep Singh",
+  //     picture: "", // Assuming an empty string for the picture, as it's not provided in the original data
+  //   },
+  //   upvotes: 10000000, // Representing the upvotes as an array of strings
+  //   answers: [{}, {}], // Assuming each answer is an empty object, as the detailed structure is not provided
+  //   views: 40000,
+  //   createdAt: new Date("2024-06-04"), // Converting the date string to a Date object
+  // },
 ];
 
 const Home = async () => {
