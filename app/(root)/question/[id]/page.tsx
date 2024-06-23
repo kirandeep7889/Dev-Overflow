@@ -1,15 +1,23 @@
 import Answer from "@/components/forms/Answer";
 import Metric from "@/components/Metric";
+import AllAnswers from "@/components/shared/AllAnswers";
 import ParseHTML from "@/components/shared/ParseHTML";
 import { getQuestionById } from "@/lib/actions/question.action";
+import { getUserId } from "@/lib/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const page = async ({ params }: any) => {
-  const result: any = await getQuestionById({ questionId: params.id });
-  console.log(result.question.tags);
+  const result = await getQuestionById({ questionId: params.id });
+  const { userId: clerkId } = auth();
+
+  let mongoUser;
+  if (clerkId) {
+    mongoUser = await getUserId({ userId: clerkId });
+  }
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -62,7 +70,17 @@ const page = async ({ params }: any) => {
 
       <ParseHTML data={result.question.content} />
 
-      <Answer />
+      <AllAnswers
+        questionId={result.question._id}
+        userId={JSON.stringify(mongoUser._id)}
+        totalAnswers={result.question.answers.length}
+      />
+
+      <Answer
+        question={result.question.content}
+        questionId={result.question._id}
+        authorId={JSON.stringify(mongoUser._id)}
+      />
     </>
   );
 };
