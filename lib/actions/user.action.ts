@@ -30,6 +30,8 @@ export async function getAllUsers(params:GetAllUsersParams) {
 
          const user=await User.findOne({clerkId:userId});
 
+         console.log(user)
+
          return user;
 
      } catch (error) {
