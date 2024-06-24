@@ -1,4 +1,5 @@
 "use client";
+import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
 import {
   downvoteQuestion,
   upvoteQuestion,
@@ -47,17 +48,18 @@ const Votes = ({
           path: pathname,
         });
       } else if (type === "Answer") {
-        // await upvoteAnswer({
-        //   answerId: JSON.parse(itemId),
-        //   userId: JSON.parse(userId),
-        //   hasupVoted,
-        //   hasdownVoted,
-        //   path: pathname,
-        // });
+        await upvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
       }
     }
 
     if (action === "downvote") {
+      console.log("heelo");
       if (type === "Question") {
         await downvoteQuestion({
           questionId: JSON.parse(itemId),
@@ -67,13 +69,14 @@ const Votes = ({
           path: pathname,
         });
       } else if (type === "Answer") {
-        // await downvoteAnswer({
-        //   answerId: JSON.parse(itemId),
-        //   userId: JSON.parse(userId),
-        //   hasupVoted,
-        //   hasdownVoted,
-        //   path: pathname,
-        // });
+        console.log("hi");
+        await downvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
       }
     }
   };
@@ -99,7 +102,7 @@ const Votes = ({
             </p>
           </div>
         </div>
-        <div className="flex-center gap-2.5">
+        <div className="flex-center gap-1.5">
           <Image
             src={
               hasdownVoted
@@ -108,29 +111,32 @@ const Votes = ({
             }
             width={18}
             height={18}
-            className="cursor-pointer"
             alt="downvote"
+            className="cursor-pointer"
             onClick={() => handleVote("downvote")}
           />
-          <div className="flex-centr background-light700_dark400 min-w-[18px] rounded-sm p-1">
+
+          <div className="flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1">
             <p className="subtle-medium text-dark400_light900">
               {formatAndDivideNumber(downvotes)}
             </p>
           </div>
         </div>
       </div>
-      <Image
-        src={
-          hasSaved
-            ? "/assets/icons/star-filled.svg"
-            : "/assets/icons/star-red.svg"
-        }
-        width={18}
-        height={18}
-        className="cursor-pointer"
-        alt="save"
-        onClick={() => handlesave()}
-      />
+      {type === "Question" && (
+        <Image
+          src={
+            hasSaved
+              ? "/assets/icons/star-filled.svg"
+              : "/assets/icons/star-red.svg"
+          }
+          width={18}
+          height={18}
+          className="cursor-pointer"
+          alt="save"
+          onClick={() => handlesave()}
+        />
+      )}
     </div>
   );
 };
