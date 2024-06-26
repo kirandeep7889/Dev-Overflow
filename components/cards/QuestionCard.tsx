@@ -20,6 +20,7 @@ interface QuestionCardProps {
   views: number;
   answers: Array<object>;
   createdAt: Date;
+  clerkId?: string | null;
 }
 
 const QuestionCard = ({
@@ -30,6 +31,7 @@ const QuestionCard = ({
   upvotes,
   views,
   answers,
+  clerkId,
   createdAt,
 }: QuestionCardProps) => {
   return (
