@@ -3,9 +3,11 @@
 import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
 import Tag from "@/database/tag.model";
-import {  CreateQuestionParams, GetQuestionByIdParams, GetQuestionsParams, QuestionVoteParams } from "./shared.types";
+import {  CreateQuestionParams, DeleteAnswerParams, DeleteQuestionParams, EditQuestionParams, GetQuestionByIdParams, GetQuestionsParams, QuestionVoteParams } from "./shared.types";
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
+import Answer from "@/database/answer.model";
+import Interaction from "@/database/interaction.model";
 
 
 export async  function getQuestions(params:GetQuestionsParams) {
@@ -158,4 +160,62 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
       console.log(error);
       throw error;
     }
+}
+
+export async function EditQuestion(params:EditQuestionParams) {
+  try {
+    await connectToDatabase();
+    const {questionId,content,title,path}=params;
+
+    const question=await Question.findById(questionId).populate('tags');
+     if(!question) {
+       throw new Error('Question not found');
+    }
+     
+     question.content=content;
+     question.title=title;
+
+     await question.save();
+
+     revalidatePath(path);
+
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+export async function deleteQuestions(params:DeleteQuestionParams) {
+   try {
+     await connectToDatabase();
+     const {questionId,path}=params;
+      await Question.deleteOne({_id:questionId});
+      await Interaction.deleteMany({question:questionId})
+      await Tag.updateMany({questions:questionId} ,{ $pull:{questions:questionId }})
+      await Answer.deleteMany({question:questionId});
+
+      revalidatePath(path);
+   } catch (error) {
+       console.log(error)
+   }
+}
+
+export async function deleteAnswer(params:DeleteAnswerParams) {
+  try {
+    await connectToDatabase();
+    const {answerId,path}=params;
+    const answer=await Answer.findById(answerId);
+
+    if(!answer) {
+      throw new Error('Answer not found');
+    }
+
+     await answer.deleteOne({_id: answerId});
+     await Question.updateMany({_id:answer.question},{$pull:{answers:answerId}})
+      await Interaction.deleteMany({answer:answerId})
+
+
+     revalidatePath(path);
+  } catch (error) {
+      console.log(error)
+  }
 }
