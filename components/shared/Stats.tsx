@@ -26,6 +26,7 @@ interface Props {
 }
 
 const Stats = ({ totalQuestions, totalAnswers }: Props) => {
+  console.log(totalQuestions, totalAnswers);
   return (
     <div className="mt-10">
       <div className="mt-5 grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-4">
